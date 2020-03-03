@@ -1,0 +1,23 @@
+{
+  "name": "petstagram",
+  "version": "1.0.0",
+  "repository": "https://github.com/hyeonss0417/petstagram.git",
+  "author": "전현성 <skyoun97@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
+    "dotenv": "^8.2.0",
+    "graphql-tools": "^4.0.7",
+    "graphql-yoga": "^1.18.3",
+    "merge-graphql-schemas": "^1.7.6",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  }
+}

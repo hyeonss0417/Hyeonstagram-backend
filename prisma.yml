@@ -1,0 +1,6 @@
+endpoint: https://eu1.prisma.sh/hyeonss0417-8cb71d/petstagram/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
