@@ -1039,8 +1039,9 @@ type PageInfo {
 
 type Post {
   id: ID!
+  user: User!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
-  location: String!
+  location: String
   caption: String!
   likes(where: LikeWhereInput, orderBy: LikeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Like!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -1054,15 +1055,16 @@ type PostConnection {
 
 input PostCreateInput {
   id: ID
+  user: UserCreateOneWithoutPostsInput!
   files: FileCreateManyWithoutPostInput
-  location: String!
+  location: String
   caption: String!
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
 }
 
-input PostCreateManyInput {
-  create: [PostCreateInput!]
+input PostCreateManyWithoutUserInput {
+  create: [PostCreateWithoutUserInput!]
   connect: [PostWhereUniqueInput!]
 }
 
@@ -1083,15 +1085,17 @@ input PostCreateOneWithoutLikesInput {
 
 input PostCreateWithoutCommentsInput {
   id: ID
+  user: UserCreateOneWithoutPostsInput!
   files: FileCreateManyWithoutPostInput
-  location: String!
+  location: String
   caption: String!
   likes: LikeCreateManyWithoutPostInput
 }
 
 input PostCreateWithoutFilesInput {
   id: ID
-  location: String!
+  user: UserCreateOneWithoutPostsInput!
+  location: String
   caption: String!
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
@@ -1099,9 +1103,19 @@ input PostCreateWithoutFilesInput {
 
 input PostCreateWithoutLikesInput {
   id: ID
+  user: UserCreateOneWithoutPostsInput!
   files: FileCreateManyWithoutPostInput
-  location: String!
+  location: String
   caption: String!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutUserInput {
+  id: ID
+  files: FileCreateManyWithoutPostInput
+  location: String
+  caption: String!
+  likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
 }
 
@@ -1121,7 +1135,7 @@ enum PostOrderByInput {
 
 type PostPreviousValues {
   id: ID!
-  location: String!
+  location: String
   caption: String!
 }
 
@@ -1191,15 +1205,8 @@ input PostSubscriptionWhereInput {
   NOT: [PostSubscriptionWhereInput!]
 }
 
-input PostUpdateDataInput {
-  files: FileUpdateManyWithoutPostInput
-  location: String
-  caption: String
-  likes: LikeUpdateManyWithoutPostInput
-  comments: CommentUpdateManyWithoutPostInput
-}
-
 input PostUpdateInput {
+  user: UserUpdateOneRequiredWithoutPostsInput
   files: FileUpdateManyWithoutPostInput
   location: String
   caption: String
@@ -1212,21 +1219,21 @@ input PostUpdateManyDataInput {
   caption: String
 }
 
-input PostUpdateManyInput {
-  create: [PostCreateInput!]
-  update: [PostUpdateWithWhereUniqueNestedInput!]
-  upsert: [PostUpsertWithWhereUniqueNestedInput!]
+input PostUpdateManyMutationInput {
+  location: String
+  caption: String
+}
+
+input PostUpdateManyWithoutUserInput {
+  create: [PostCreateWithoutUserInput!]
   delete: [PostWhereUniqueInput!]
   connect: [PostWhereUniqueInput!]
   set: [PostWhereUniqueInput!]
   disconnect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
   deleteMany: [PostScalarWhereInput!]
   updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyMutationInput {
-  location: String
-  caption: String
 }
 
 input PostUpdateManyWithWhereNestedInput {
@@ -1256,6 +1263,7 @@ input PostUpdateOneRequiredWithoutLikesInput {
 }
 
 input PostUpdateWithoutCommentsDataInput {
+  user: UserUpdateOneRequiredWithoutPostsInput
   files: FileUpdateManyWithoutPostInput
   location: String
   caption: String
@@ -1263,6 +1271,7 @@ input PostUpdateWithoutCommentsDataInput {
 }
 
 input PostUpdateWithoutFilesDataInput {
+  user: UserUpdateOneRequiredWithoutPostsInput
   location: String
   caption: String
   likes: LikeUpdateManyWithoutPostInput
@@ -1270,15 +1279,24 @@ input PostUpdateWithoutFilesDataInput {
 }
 
 input PostUpdateWithoutLikesDataInput {
+  user: UserUpdateOneRequiredWithoutPostsInput
   files: FileUpdateManyWithoutPostInput
   location: String
   caption: String
   comments: CommentUpdateManyWithoutPostInput
 }
 
-input PostUpdateWithWhereUniqueNestedInput {
+input PostUpdateWithoutUserDataInput {
+  files: FileUpdateManyWithoutPostInput
+  location: String
+  caption: String
+  likes: LikeUpdateManyWithoutPostInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithWhereUniqueWithoutUserInput {
   where: PostWhereUniqueInput!
-  data: PostUpdateDataInput!
+  data: PostUpdateWithoutUserDataInput!
 }
 
 input PostUpsertWithoutCommentsInput {
@@ -1296,10 +1314,10 @@ input PostUpsertWithoutLikesInput {
   create: PostCreateWithoutLikesInput!
 }
 
-input PostUpsertWithWhereUniqueNestedInput {
+input PostUpsertWithWhereUniqueWithoutUserInput {
   where: PostWhereUniqueInput!
-  update: PostUpdateDataInput!
-  create: PostCreateInput!
+  update: PostUpdateWithoutUserDataInput!
+  create: PostCreateWithoutUserInput!
 }
 
 input PostWhereInput {
@@ -1317,6 +1335,7 @@ input PostWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  user: UserWhereInput
   files_every: FileWhereInput
   files_some: FileWhereInput
   files_none: FileWhereInput
@@ -1428,7 +1447,7 @@ input UserCreateInput {
   bio: String
   followers: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowersInput
-  posts: PostCreateManyInput
+  posts: PostCreateManyWithoutUserInput
   likes: LikeCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   chatRooms: ChatRoomCreateManyWithoutParticipantsInput
@@ -1464,6 +1483,11 @@ input UserCreateOneWithoutLikesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateWithoutChatRoomsInput {
   id: ID
   username: String!
@@ -1473,7 +1497,7 @@ input UserCreateWithoutChatRoomsInput {
   bio: String
   followers: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowersInput
-  posts: PostCreateManyInput
+  posts: PostCreateManyWithoutUserInput
   likes: LikeCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
 }
@@ -1487,7 +1511,7 @@ input UserCreateWithoutCommentsInput {
   bio: String
   followers: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowersInput
-  posts: PostCreateManyInput
+  posts: PostCreateManyWithoutUserInput
   likes: LikeCreateManyWithoutUserInput
   chatRooms: ChatRoomCreateManyWithoutParticipantsInput
 }
@@ -1500,7 +1524,7 @@ input UserCreateWithoutFollowersInput {
   lastName: String
   bio: String
   following: UserCreateManyWithoutFollowersInput
-  posts: PostCreateManyInput
+  posts: PostCreateManyWithoutUserInput
   likes: LikeCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   chatRooms: ChatRoomCreateManyWithoutParticipantsInput
@@ -1514,7 +1538,7 @@ input UserCreateWithoutFollowingInput {
   lastName: String
   bio: String
   followers: UserCreateManyWithoutFollowingInput
-  posts: PostCreateManyInput
+  posts: PostCreateManyWithoutUserInput
   likes: LikeCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   chatRooms: ChatRoomCreateManyWithoutParticipantsInput
@@ -1529,7 +1553,21 @@ input UserCreateWithoutLikesInput {
   bio: String
   followers: UserCreateManyWithoutFollowingInput
   following: UserCreateManyWithoutFollowersInput
-  posts: PostCreateManyInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  chatRooms: ChatRoomCreateManyWithoutParticipantsInput
+}
+
+input UserCreateWithoutPostsInput {
+  id: ID
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  bio: String
+  followers: UserCreateManyWithoutFollowingInput
+  following: UserCreateManyWithoutFollowersInput
+  likes: LikeCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   chatRooms: ChatRoomCreateManyWithoutParticipantsInput
 }
@@ -1679,7 +1717,7 @@ input UserUpdateDataInput {
   bio: String
   followers: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowersInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
@@ -1693,7 +1731,7 @@ input UserUpdateInput {
   bio: String
   followers: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowersInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
@@ -1777,6 +1815,13 @@ input UserUpdateOneRequiredWithoutLikesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  update: UserUpdateWithoutPostsDataInput
+  upsert: UserUpsertWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateWithoutChatRoomsDataInput {
   username: String
   email: String
@@ -1785,7 +1830,7 @@ input UserUpdateWithoutChatRoomsDataInput {
   bio: String
   followers: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowersInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
 }
@@ -1798,7 +1843,7 @@ input UserUpdateWithoutCommentsDataInput {
   bio: String
   followers: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowersInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
   chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
 }
@@ -1810,7 +1855,7 @@ input UserUpdateWithoutFollowersDataInput {
   lastName: String
   bio: String
   following: UserUpdateManyWithoutFollowersInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
@@ -1823,7 +1868,7 @@ input UserUpdateWithoutFollowingDataInput {
   lastName: String
   bio: String
   followers: UserUpdateManyWithoutFollowingInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
@@ -1837,7 +1882,20 @@ input UserUpdateWithoutLikesDataInput {
   bio: String
   followers: UserUpdateManyWithoutFollowingInput
   following: UserUpdateManyWithoutFollowersInput
-  posts: PostUpdateManyInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
+}
+
+input UserUpdateWithoutPostsDataInput {
+  username: String
+  email: String
+  firstName: String
+  lastName: String
+  bio: String
+  followers: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowersInput
+  likes: LikeUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   chatRooms: ChatRoomUpdateManyWithoutParticipantsInput
 }
@@ -1870,6 +1928,11 @@ input UserUpsertWithoutCommentsInput {
 input UserUpsertWithoutLikesInput {
   update: UserUpdateWithoutLikesDataInput!
   create: UserCreateWithoutLikesInput!
+}
+
+input UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput!
+  create: UserCreateWithoutPostsInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutChatRoomsInput {
