@@ -5,10 +5,10 @@ Upload, record, and remember your lovely pets' picture! [ Express + Prisma + Rea
 ## User Stories
 
 - [✅] Create account
-- [ ] Request Secret
-- [ ] Confirm Secret (Login)
-- [ ] Like / Unlike a photo
-- [ ] Comment on a photo
+- [✅] Request Secret
+- [✅] Confirm Secret (Login)
+- [✅] Like / Unlike a photo
+- [✅] Comment on a photo
 - [ ] Search by user
 - [ ] Search by location
 - [ ] See user profile
