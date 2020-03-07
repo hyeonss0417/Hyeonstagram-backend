@@ -5,12 +5,13 @@ import passport from "passport";
 import schema from "./schema";
 import "./passport";
 import {authenticateJwt} from "./passport";
+import {checkIfAuthenticated} from "./middleware";
 
 const PORT = process.env.PORT || 4000;
 
 const server = new GraphQLServer({
   schema,
-  context: ({request}) => ({request})
+  context: ({request}) => ({request, checkIfAuthenticated})
 });
 
 server.express.use(logger("dev"));
