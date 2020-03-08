@@ -5,20 +5,23 @@ export default {
     newMessage: {
       subscribe: (_, args) => {
         // checkIfAuthenticated(request);
-        const {chatId} = args;
+        const {roomId} = args;
         // const {user} = request;
-        // console.log(user);
-        return prisma.$subscribe.message({
-          AND: [
-            {mutation_in: "CREATED"},
-            {
-              node: {
-                AND: [/*{to: {id: user.id}},*/ {chatRoom: {id: chatId}}]
+        // console.log(user);(format);
+        return prisma.$subscribe
+          .message({
+            AND: [
+              {mutation_in: "CREATED"},
+              {
+                node: {
+                  AND: [/*{to: {id: user.id}},*/ {chatRoom: {id: roomId}}]
+                }
               }
-            }
-          ]
-        });
-      }
+            ]
+          })
+          .node();
+      },
+      resolve: payload => payload
     }
   }
 };
