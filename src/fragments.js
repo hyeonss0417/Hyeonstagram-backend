@@ -8,11 +8,20 @@ export const COMMENT_FRAGMENT = `
     }
 `;
 
-export const FEED_FRAGMENT = `
-    fragment PostParts on Post {
-        
+export const CHATROOM_FRAGEMENT = `
+    fragment ChatRoomParts on ChatRoom {
+        id
+        participants {
+            id
+        }
     }
 `;
+
+// export const FEED_FRAGMENT = `
+//     fragment PostParts on Post {
+
+//     }
+// `;
 
 export const USER_FRAGMENT = `
     fragment UserParts on User {
