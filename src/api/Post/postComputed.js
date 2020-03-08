@@ -1,4 +1,4 @@
-import {prisma} from "../../../../generated/prisma-client";
+import {prisma} from "../../../generated/prisma-client";
 
 export default {
   Post: {
@@ -8,6 +8,14 @@ export default {
       return prisma.$exists.like({
         AND: [{post: {id: postId}}, {user: {id: user.id}}]
       });
+    },
+    likeCount: (parent, _) => {
+      return prisma
+        .likesConnection({
+          where: {post: {id: parent.id}}
+        })
+        .aggregate()
+        .count();
     }
   }
 };

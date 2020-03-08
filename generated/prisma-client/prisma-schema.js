@@ -1040,9 +1040,9 @@ type PageInfo {
 type Post {
   id: ID!
   user: User!
-  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
-  location: String
   caption: String!
+  location: String
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
   likes(where: LikeWhereInput, orderBy: LikeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Like!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
@@ -1056,9 +1056,9 @@ type PostConnection {
 input PostCreateInput {
   id: ID
   user: UserCreateOneWithoutPostsInput!
-  files: FileCreateManyWithoutPostInput
-  location: String
   caption: String!
+  location: String
+  files: FileCreateManyWithoutPostInput
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
 }
@@ -1086,17 +1086,17 @@ input PostCreateOneWithoutLikesInput {
 input PostCreateWithoutCommentsInput {
   id: ID
   user: UserCreateOneWithoutPostsInput!
-  files: FileCreateManyWithoutPostInput
-  location: String
   caption: String!
+  location: String
+  files: FileCreateManyWithoutPostInput
   likes: LikeCreateManyWithoutPostInput
 }
 
 input PostCreateWithoutFilesInput {
   id: ID
   user: UserCreateOneWithoutPostsInput!
-  location: String
   caption: String!
+  location: String
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
 }
@@ -1104,17 +1104,17 @@ input PostCreateWithoutFilesInput {
 input PostCreateWithoutLikesInput {
   id: ID
   user: UserCreateOneWithoutPostsInput!
-  files: FileCreateManyWithoutPostInput
-  location: String
   caption: String!
+  location: String
+  files: FileCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
 }
 
 input PostCreateWithoutUserInput {
   id: ID
-  files: FileCreateManyWithoutPostInput
-  location: String
   caption: String!
+  location: String
+  files: FileCreateManyWithoutPostInput
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
 }
@@ -1127,16 +1127,16 @@ type PostEdge {
 enum PostOrderByInput {
   id_ASC
   id_DESC
-  location_ASC
-  location_DESC
   caption_ASC
   caption_DESC
+  location_ASC
+  location_DESC
 }
 
 type PostPreviousValues {
   id: ID!
-  location: String
   caption: String!
+  location: String
 }
 
 input PostScalarWhereInput {
@@ -1154,20 +1154,6 @@ input PostScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  location: String
-  location_not: String
-  location_in: [String!]
-  location_not_in: [String!]
-  location_lt: String
-  location_lte: String
-  location_gt: String
-  location_gte: String
-  location_contains: String
-  location_not_contains: String
-  location_starts_with: String
-  location_not_starts_with: String
-  location_ends_with: String
-  location_not_ends_with: String
   caption: String
   caption_not: String
   caption_in: [String!]
@@ -1182,6 +1168,20 @@ input PostScalarWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
   AND: [PostScalarWhereInput!]
   OR: [PostScalarWhereInput!]
   NOT: [PostScalarWhereInput!]
@@ -1207,21 +1207,21 @@ input PostSubscriptionWhereInput {
 
 input PostUpdateInput {
   user: UserUpdateOneRequiredWithoutPostsInput
-  files: FileUpdateManyWithoutPostInput
-  location: String
   caption: String
+  location: String
+  files: FileUpdateManyWithoutPostInput
   likes: LikeUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateManyDataInput {
-  location: String
   caption: String
+  location: String
 }
 
 input PostUpdateManyMutationInput {
-  location: String
   caption: String
+  location: String
 }
 
 input PostUpdateManyWithoutUserInput {
@@ -1264,32 +1264,32 @@ input PostUpdateOneRequiredWithoutLikesInput {
 
 input PostUpdateWithoutCommentsDataInput {
   user: UserUpdateOneRequiredWithoutPostsInput
-  files: FileUpdateManyWithoutPostInput
-  location: String
   caption: String
+  location: String
+  files: FileUpdateManyWithoutPostInput
   likes: LikeUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutFilesDataInput {
   user: UserUpdateOneRequiredWithoutPostsInput
-  location: String
   caption: String
+  location: String
   likes: LikeUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutLikesDataInput {
   user: UserUpdateOneRequiredWithoutPostsInput
-  files: FileUpdateManyWithoutPostInput
-  location: String
   caption: String
+  location: String
+  files: FileUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutUserDataInput {
-  files: FileUpdateManyWithoutPostInput
-  location: String
   caption: String
+  location: String
+  files: FileUpdateManyWithoutPostInput
   likes: LikeUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
 }
@@ -1336,23 +1336,6 @@ input PostWhereInput {
   id_ends_with: ID
   id_not_ends_with: ID
   user: UserWhereInput
-  files_every: FileWhereInput
-  files_some: FileWhereInput
-  files_none: FileWhereInput
-  location: String
-  location_not: String
-  location_in: [String!]
-  location_not_in: [String!]
-  location_lt: String
-  location_lte: String
-  location_gt: String
-  location_gte: String
-  location_contains: String
-  location_not_contains: String
-  location_starts_with: String
-  location_not_starts_with: String
-  location_ends_with: String
-  location_not_ends_with: String
   caption: String
   caption_not: String
   caption_in: [String!]
@@ -1367,6 +1350,23 @@ input PostWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  files_every: FileWhereInput
+  files_some: FileWhereInput
+  files_none: FileWhereInput
   likes_every: LikeWhereInput
   likes_some: LikeWhereInput
   likes_none: LikeWhereInput

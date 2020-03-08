@@ -8,6 +8,20 @@ export const COMMENT_FRAGMENT = `
     }
 `;
 
+export const USER_FRAGMENT = `
+    fragment UserParts on User {
+        id
+        username
+    }
+`;
+
+export const FILE_FRAGMENT = `
+    fragment FileParts on File {
+        id
+        url
+    }
+`;
+
 // export const USER_FRAGMENT = `
 //     fragment UserParts on User{
 //         id

@@ -1,7 +1,8 @@
 type FullPost {
   post: Post!
+  user: User!
+  files: [File!]!
   comments: [Comment!]!
-  likeCount: Int!
 }
 
 type Query {

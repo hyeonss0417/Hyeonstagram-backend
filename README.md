@@ -20,3 +20,7 @@ Upload, record, and remember your lovely pets' picture! [ Express + Prisma + Rea
 - [ ] Upload a photo
 - [ ] Edit the photo (Delete)
 - [ ] See the feed
+- [ ] See chatRooms
+- [ ] See chatRoom
+- [ ] Send private Message
+- [ ] Receive Message (Realtime)
