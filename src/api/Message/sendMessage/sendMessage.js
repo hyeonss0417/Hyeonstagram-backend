@@ -24,7 +24,7 @@ export default {
         toId = chatRoom.participants.filter(
           participant => participant.id !== user.id
         )[0].id;
-        console.log(toId);
+        // console.log(toId);
       }
       if (!chatRoom) {
         throw Error("⚠️ The chatroom not found! ⚠️");

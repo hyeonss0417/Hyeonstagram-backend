@@ -13,6 +13,8 @@ export const CHATROOM_FRAGEMENT = `
         id
         participants {
             id
+            username
+            avatar
         }
     }
 `;
@@ -24,16 +26,28 @@ export const CHATROOM_FRAGEMENT = `
 // `;
 
 export const USER_FRAGMENT = `
-    fragment UserParts on User {
         id
         username
-    }
+        avatar
 `;
 
-export const FILE_FRAGMENT = `
-    fragment FileParts on File {
+// export const FILE_FRAGMENT = `
+//     fragment FileParts on File {
+//         id
+//         url
+//     }
+// `;
+
+export const MESSAGE_FRAGMENT = `
+    fragment MessageParts on Message {
         id
-        url
+        text
+        to {
+            ${USER_FRAGMENT}
+        }
+        from {
+            ${USER_FRAGMENT}
+        }
     }
 `;
 

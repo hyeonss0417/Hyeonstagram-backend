@@ -1,0 +1,8 @@
+type seeChatRoomResponse {
+  chatRoom: ChatRoom!
+  messages: [Message!]!
+}
+
+type Query {
+  seeChatRoom(id: String!): seeChatRoomResponse!
+}
