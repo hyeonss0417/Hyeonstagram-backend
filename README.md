@@ -23,4 +23,4 @@ Upload, record, and remember your lovely pets' picture! [ Express + Prisma + Rea
 - [x] See chatRooms
 - [x] Send private Message
 - [x] See chatRoom
-- [ ] Receive Message (Realtime)
+- [x] Receive Message (Realtime)
