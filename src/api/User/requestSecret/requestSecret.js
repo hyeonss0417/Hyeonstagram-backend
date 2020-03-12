@@ -5,9 +5,12 @@ export default {
   Mutation: {
     requestSecret: async (_, args) => {
       const {email} = args;
-      const loginSecret = generateSecret();
       console.log(loginSecret);
-
+      const exist = await prisma.$exists.user({email});
+      if (!exist) {
+        return false;
+      }
+      const loginSecret = generateSecret();
       try {
         await sendSecretMail(email, loginSecret);
         await prisma.updateUser({data: {loginSecret}, where: {email}});
