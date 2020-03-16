@@ -14,9 +14,6 @@ export default {
         return generateToken(user.id);
       } else {
         throw Error("Wrong secret key!");
-        throw Error("Wrong secret key!");
-        throw Error("Wrong secret key!");
-        throw Error("Wrong secret key!");
       }
     }
   }
