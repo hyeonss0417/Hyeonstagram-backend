@@ -72,4 +72,8 @@ type Message {
   updatedAt: DateTime! @updatedAt
 }
 
-
+type Test {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
