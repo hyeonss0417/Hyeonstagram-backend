@@ -76,6 +76,6 @@ type PDF {
   id: ID! @id
   content: String!
   writer: User!
-  createdAt: DataTime! @createdAt
+  createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

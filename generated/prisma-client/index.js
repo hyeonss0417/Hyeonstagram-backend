@@ -33,7 +33,7 @@ var models = [
     embedded: false
   },
   {
-    name: "Test",
+    name: "PDF",
     embedded: false
   }
 ];

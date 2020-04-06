@@ -23,11 +23,11 @@ type AggregateMessage {
   count: Int!
 }
 
-type AggregatePost {
+type AggregatePDF {
   count: Int!
 }
 
-type AggregateTest {
+type AggregatePost {
   count: Int!
 }
 
@@ -1212,15 +1212,18 @@ type Mutation {
   upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
   deleteMessage(where: MessageWhereUniqueInput!): Message
   deleteManyMessages(where: MessageWhereInput): BatchPayload!
+  createPDF(data: PDFCreateInput!): PDF!
+  updatePDF(data: PDFUpdateInput!, where: PDFWhereUniqueInput!): PDF
+  updateManyPDFs(data: PDFUpdateManyMutationInput!, where: PDFWhereInput): BatchPayload!
+  upsertPDF(where: PDFWhereUniqueInput!, create: PDFCreateInput!, update: PDFUpdateInput!): PDF!
+  deletePDF(where: PDFWhereUniqueInput!): PDF
+  deleteManyPDFs(where: PDFWhereInput): BatchPayload!
   createPost(data: PostCreateInput!): Post!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   deletePost(where: PostWhereUniqueInput!): Post
   deleteManyPosts(where: PostWhereInput): BatchPayload!
-  createTest(data: TestCreateInput!): Test!
-  deleteTest(where: TestWhereUniqueInput!): Test
-  deleteManyTests(where: TestWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1244,6 +1247,131 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: String
   endCursor: String
+}
+
+type PDF {
+  id: ID!
+  content: String!
+  writer: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PDFConnection {
+  pageInfo: PageInfo!
+  edges: [PDFEdge]!
+  aggregate: AggregatePDF!
+}
+
+input PDFCreateInput {
+  id: ID
+  content: String!
+  writer: UserCreateOneInput!
+}
+
+type PDFEdge {
+  node: PDF!
+  cursor: String!
+}
+
+enum PDFOrderByInput {
+  id_ASC
+  id_DESC
+  content_ASC
+  content_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PDFPreviousValues {
+  id: ID!
+  content: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PDFSubscriptionPayload {
+  mutation: MutationType!
+  node: PDF
+  updatedFields: [String!]
+  previousValues: PDFPreviousValues
+}
+
+input PDFSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PDFWhereInput
+  AND: [PDFSubscriptionWhereInput!]
+  OR: [PDFSubscriptionWhereInput!]
+  NOT: [PDFSubscriptionWhereInput!]
+}
+
+input PDFUpdateInput {
+  content: String
+  writer: UserUpdateOneRequiredInput
+}
+
+input PDFUpdateManyMutationInput {
+  content: String
+}
+
+input PDFWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  writer: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [PDFWhereInput!]
+  OR: [PDFWhereInput!]
+  NOT: [PDFWhereInput!]
+}
+
+input PDFWhereUniqueInput {
+  id: ID
 }
 
 type Post {
@@ -1647,12 +1775,12 @@ type Query {
   message(where: MessageWhereUniqueInput!): Message
   messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
   messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
+  pDF(where: PDFWhereUniqueInput!): PDF
+  pDFs(where: PDFWhereInput, orderBy: PDFOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PDF]!
+  pDFsConnection(where: PDFWhereInput, orderBy: PDFOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PDFConnection!
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
-  test(where: TestWhereUniqueInput!): Test
-  tests(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Test]!
-  testsConnection(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1665,103 +1793,9 @@ type Subscription {
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   like(where: LikeSubscriptionWhereInput): LikeSubscriptionPayload
   message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
+  pDF(where: PDFSubscriptionWhereInput): PDFSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
-  test(where: TestSubscriptionWhereInput): TestSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type Test {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type TestConnection {
-  pageInfo: PageInfo!
-  edges: [TestEdge]!
-  aggregate: AggregateTest!
-}
-
-input TestCreateInput {
-  id: ID
-}
-
-type TestEdge {
-  node: Test!
-  cursor: String!
-}
-
-enum TestOrderByInput {
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type TestPreviousValues {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type TestSubscriptionPayload {
-  mutation: MutationType!
-  node: Test
-  updatedFields: [String!]
-  previousValues: TestPreviousValues
-}
-
-input TestSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: TestWhereInput
-  AND: [TestSubscriptionWhereInput!]
-  OR: [TestSubscriptionWhereInput!]
-  NOT: [TestSubscriptionWhereInput!]
-}
-
-input TestWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  AND: [TestWhereInput!]
-  OR: [TestWhereInput!]
-  NOT: [TestWhereInput!]
-}
-
-input TestWhereUniqueInput {
-  id: ID
 }
 
 type User {
