@@ -72,8 +72,10 @@ type Message {
   updatedAt: DateTime! @updatedAt
 }
 
-type Test {
+type PDF {
   id: ID! @id
-  createdAt: DateTime! @createdAt
+  content: String!
+  writer: User!
+  createdAt: DataTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
