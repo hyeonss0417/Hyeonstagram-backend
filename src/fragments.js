@@ -26,6 +26,14 @@ export const CHATROOM_FRAGEMENT = `
 // `;
 
 export const USER_FRAGMENT = `
+    fragment UserParts on User {
+        id
+        username
+        avatar
+    }
+`;
+
+export const _USER_FRAGMENT = `
         id
         username
         avatar
@@ -43,10 +51,10 @@ export const MESSAGE_FRAGMENT = `
         id
         text
         to {
-            ${USER_FRAGMENT}
+            ${_USER_FRAGMENT}
         }
         from {
-            ${USER_FRAGMENT}
+            ${_USER_FRAGMENT}
         }
     }
 `;
