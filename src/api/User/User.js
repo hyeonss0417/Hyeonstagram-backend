@@ -13,14 +13,18 @@ export default {
       });
     },
     isSelf: (parent, _, {request}) => parent.id === request.user.id,
-  },
-  followersCount: (parent) => {
-    return parent.followers.length;
-  },
-  followingCount: (parent) => {
-    return parent.following.length;
-  },
-  postsCount: (parent) => {
-    return parent.posts.length;
+    followersCount: ({id}) =>
+      prisma
+        .usersConnection({where: {following_some: {id}}})
+        .aggregate()
+        .count(),
+    followingCount: ({id}) =>
+      prisma
+        .usersConnection({where: {followers_some: {id}}})
+        .aggregate()
+        .count(),
+    postsCount: (parent) => {
+      return parent.posts ? parent.posts.length : 0;
+    },
   },
 };

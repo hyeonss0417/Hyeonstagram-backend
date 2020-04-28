@@ -11,10 +11,10 @@ type User {
   bio: String
   followers: [User!]!
   following: [User!]!
-  followersCount: Int!
-  followingCount: Int!
+  followersCount: Int
+  followingCount: Int
   posts: [Post!]!
-  postsCount: Int!
+  postsCount: Int
   likes: [Like!]!
   comments: [Comment!]!
   chatRooms: [ChatRoom!]!
@@ -32,8 +32,8 @@ type Post {
   likes: [Like!]!
   comments: [Comment!]!
   isLiked: Boolean!
-  likeCount: Int!
-  commentCount: Int!
+  likeCount: Int
+  commentCount: Int
   createdAt: String
   updatedAt: String
 }
