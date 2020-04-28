@@ -3,10 +3,10 @@ import {prisma} from "../../../../generated/prisma-client";
 export default {
   Query: {
     seeUser: async (_, args) => {
-      const {id} = args;
-      const user = await prisma.user({id});
-      user["posts"] = await prisma.user({id}).posts();
+      const {username} = args;
+      const user = await prisma.user({username});
+      user["posts"] = await prisma.user({username}).posts();
       return user;
-    }
-  }
+    },
+  },
 };
