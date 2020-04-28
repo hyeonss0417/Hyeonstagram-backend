@@ -20,4 +20,7 @@ export default {
   followingCount: (parent) => {
     return parent.following.length;
   },
+  postsCount: (parent) => {
+    return parent.posts.length;
+  },
 };
