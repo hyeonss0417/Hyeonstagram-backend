@@ -9,12 +9,13 @@ export default {
       if (user.loginSecret === secret) {
         await prisma.updateUser({
           where: {id: user.id},
-          data: {loginSecret: ""}
+          data: {loginSecret: ""},
         });
         return generateToken(user.id);
       } else {
-        throw Error("Wrong secret key!");
+        //throw Error("Wrong secret key!");
+        return "";
       }
-    }
-  }
+    },
+  },
 };
