@@ -1,4 +1,4 @@
-endpoint: https://eu1.prisma.sh/hyeonss0417-8cb71d/petstagram/dev
+endpoint: {env:PRISMA_ENDPOINT}
 datamodel: datamodel.prisma
 
 generate:

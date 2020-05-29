@@ -11,8 +11,8 @@ export default {
           user: {id_in: following.map((user) => user.id).concat(user.id)},
         },
         orderBy: "createdAt_DESC",
-        skip: args.from,
-        first: 10,
+        skip: args.offset,
+        first: args.limit,
       });
 
       return posts;
