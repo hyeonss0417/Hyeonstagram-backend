@@ -10,12 +10,11 @@ export const generateSecret = () => {
   return secretKey;
 };
 
-export const sendMail = email => {
+export const sendMail = (email) => {
   const options = {
     auth: {
-      api_user: process.env.SENDGRID_USERNAME,
-      api_key: process.env.SENDGIRD_PASSWORD
-    }
+      api_key: process.env.SENDGRID_APIKEY,
+    },
   };
   const client = nodemailer.createTransport(sgTransport(options));
   return client.sendMail(email);
@@ -26,9 +25,9 @@ export const sendSecretMail = (address, secret) => {
     from: "welcome@petstagramm.com",
     to: address,
     subject: "🔐 Login Secret for Petstagram 🔐",
-    html: `Hello! Your login secret is <strong>${secret}</strong>. Copy it and paste on the app/website to login!`
+    html: `Hello! Your login secret is <strong>${secret}</strong>. Copy it and paste on the app/website to login!`,
   };
   return sendMail(email);
 };
 
-export const generateToken = id => jwt.sign({id}, process.env.JWT_SECRET);
+export const generateToken = (id) => jwt.sign({id}, process.env.JWT_SECRET);
