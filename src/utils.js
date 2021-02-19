@@ -27,7 +27,10 @@ export const sendSecretMail = (address, secret) => {
     subject: "🔐 Login Secret for Petstagram 🔐",
     html: `Hello! Your login secret is <strong>${secret}</strong>. Copy it and paste on the app/website to login!`,
   };
-  return sendMail(email);
+  const result = sendMail(email);
+  console.log("result");
+  console.log(result);
+  return result;
 };
 
 export const generateToken = (id) => jwt.sign({id}, process.env.JWT_SECRET);
